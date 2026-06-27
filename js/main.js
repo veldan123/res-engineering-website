@@ -1,4 +1,4 @@
-/* RES Engineering Services — Main JS */
+/* RES Engineering Services — Main JS v2 */
 
 /* === NAVIGATION === */
 const header = document.querySelector('.site-header');
@@ -7,96 +7,108 @@ const navLinks = document.querySelector('.nav-links');
 
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 20);
-});
+}, { passive: true });
 
 navToggle?.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  const spans = navToggle.querySelectorAll('span');
-  spans[0].style.transform = navLinks.classList.contains('open') ? 'rotate(45deg) translate(5px, 5px)' : '';
-  spans[1].style.opacity = navLinks.classList.contains('open') ? '0' : '1';
-  spans[2].style.transform = navLinks.classList.contains('open') ? 'rotate(-45deg) translate(5px, -5px)' : '';
+  const open = navLinks.classList.toggle('open');
+  const [a, b, c] = navToggle.querySelectorAll('span');
+  a.style.transform = open ? 'rotate(45deg) translate(5px, 5px)' : '';
+  b.style.opacity   = open ? '0' : '1';
+  c.style.transform = open ? 'rotate(-45deg) translate(5px, -5px)' : '';
 });
 
-/* Close mobile menu on link click */
-navLinks?.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-  });
-});
+navLinks?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
-/* === ACTIVE NAV LINK === */
-const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+/* Active nav link */
+const path = window.location.pathname.replace(/\/$/, '') || '/';
 document.querySelectorAll('.nav-links a').forEach(link => {
-  const href = link.getAttribute('href').replace(/\/$/, '') || '/';
-  if (href === currentPath) link.classList.add('active');
+  const href = (link.getAttribute('href') || '').replace(/\/$/, '') || '/';
+  if (href === path) link.classList.add('active');
 });
 
-/* === SCROLL REVEAL === */
+/* === SCROLL REVEAL with STAGGER === */
 const revealEls = document.querySelectorAll('[data-reveal]');
 if (revealEls.length) {
-  const observer = new IntersectionObserver((entries) => {
+  /* Assign stagger delays to siblings in the same grid/list */
+  document.querySelectorAll('.services-grid, .projects-grid, .why-list, .stats-grid, .blog-grid, .training-grid, .team-grid, .services-page-grid, .trust-bar-inner, .footer-grid').forEach(parent => {
+    parent.querySelectorAll('[data-reveal]').forEach((el, i) => {
+      el.style.setProperty('--delay', `${i * 80}ms`);
+    });
+  });
+
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
+        obs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-  revealEls.forEach(el => observer.observe(el));
+  revealEls.forEach(el => obs.observe(el));
 }
 
 /* === COUNTER ANIMATION === */
 function animateCounter(el) {
   const target = parseInt(el.dataset.count, 10);
-  const duration = 1600;
-  const step = target / (duration / 16);
-  let current = 0;
-  const timer = setInterval(() => {
-    current = Math.min(current + step, target);
-    el.textContent = Math.floor(current) + (el.dataset.suffix || '');
-    if (current >= target) clearInterval(timer);
-  }, 16);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    el.textContent = Math.floor(easeOut(progress) * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
 
 const counters = document.querySelectorAll('[data-count]');
 if (counters.length) {
-  const counterObserver = new IntersectionObserver((entries) => {
+  const counterObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         animateCounter(entry.target);
-        counterObserver.unobserve(entry.target);
+        counterObs.unobserve(entry.target);
       }
     });
   }, { threshold: 0.5 });
-  counters.forEach(el => counterObserver.observe(el));
+  counters.forEach(el => counterObs.observe(el));
 }
 
-/* === CONTACT FORM === */
+/* === HERO PARALLAX (subtle) === */
+const hero = document.querySelector('.hero-bg');
+if (hero) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    hero.style.transform = `translateY(${y * 0.25}px)`;
+  }, { passive: true });
+}
+
+/* === CONTACT FORM (Formspree) === */
 const contactForm = document.getElementById('contactForm');
 contactForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = contactForm.querySelector('button[type="submit"]');
-  const originalText = btn.textContent;
+  const orig = btn.textContent;
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  /* Using Netlify Forms — works automatically on Netlify hosting */
   try {
-    const formData = new FormData(contactForm);
-    const response = await fetch('/', {
+    const res = await fetch(contactForm.action, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString(),
+      body: new FormData(contactForm),
+      headers: { Accept: 'application/json' }
     });
-    if (response.ok) {
+    if (res.ok) {
       window.location.href = '/thank-you/';
     } else {
-      throw new Error('Network response was not ok');
+      throw new Error();
     }
   } catch {
-    btn.textContent = originalText;
+    btn.textContent = orig;
     btn.disabled = false;
-    alert('Sorry, there was an error. Please call us directly or email us.');
+    alert('Something went wrong. Please call us directly at +65 9684 2296.');
   }
 });
