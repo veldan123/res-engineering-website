@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you/
+
+SITEMAP: https://resengrg.com/sitemap.xml
