@@ -1,5 +1,26 @@
 /* RES Engineering Services — Main JS v2 */
 
+/* === PAGE TRANSITIONS === */
+(function () {
+  document.body.style.opacity = '0';
+  requestAnimationFrame(() => {
+    document.body.style.transition = 'opacity 0.35s ease-out';
+    requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+  });
+
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('/') || link.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    if (href === window.location.pathname) return;
+    e.preventDefault();
+    document.body.style.transition = 'opacity 0.2s ease-in';
+    document.body.style.opacity = '0';
+    setTimeout(() => { window.location.href = href; }, 210);
+  });
+})();
+
 /* === NAVIGATION === */
 const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');
