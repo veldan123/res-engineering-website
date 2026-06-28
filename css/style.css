@@ -27,7 +27,7 @@
   --shadow-blue:   0 8px 32px -4px rgba(29,106,245,0.25);
   --radius:        8px;
   --radius-lg:     14px;
-  --transition:    0.28s cubic-bezier(0.4,0,0.2,1);
+  --transition:    0.3s ease-in-out;
   --max-width:     1200px;
   --font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -109,7 +109,7 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 .btn-primary:hover {
   background: var(--accent-dark);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-blue);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15), var(--shadow-blue);
 }
 
 .btn-outline {
@@ -121,6 +121,8 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 .btn-outline:hover {
   background: rgba(255,255,255,0.12);
   border-color: rgba(255,255,255,0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 .btn-outline-dark {
@@ -131,7 +133,8 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 .btn-outline-dark:hover {
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 .btn-lg { padding: 15px 32px; font-size: 0.95rem; }
@@ -946,6 +949,40 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   .footer-bottom { flex-direction: column; text-align: center; }
   .trust-bar-inner { gap: 16px; justify-content: flex-start; }
 }
+
+/* === CLIENTS STRIP === */
+.clients-strip {
+  padding: 52px 0;
+  background: var(--bg-section);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.clients-label {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.clients-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 40px;
+}
+.clients-row span {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: -0.02em;
+  opacity: 0.55;
+  transition: opacity 0.3s ease-in-out;
+  cursor: default;
+}
+.clients-row span:hover { opacity: 1; color: var(--accent); }
 
 @media (max-width: 480px) {
   .hero-actions { flex-direction: column; }
