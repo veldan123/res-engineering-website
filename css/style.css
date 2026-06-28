@@ -138,14 +138,14 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 
 /* === NAVIGATION === */
 .site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: sticky;
+  top: 0;
   z-index: 1000;
   background: rgba(5,13,26,0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: all var(--transition);
+  transition: background var(--transition), box-shadow var(--transition);
 }
 .site-header.scrolled {
   background: rgba(5,13,26,0.98);
@@ -227,7 +227,6 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: 72px;
 }
 
 .hero-bg {
