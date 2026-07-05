@@ -1,12 +1,15 @@
-/* RES Engineering Services — Main JS v2 */
+/* RES Engineering Services — Main JS v3 */
 
-/* === PAGE TRANSITIONS === */
+/* Reveal styles only apply once JS is confirmed running */
+document.documentElement.classList.add('js');
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* === PAGE TRANSITIONS ===
+   Exit fade only. No entrance fade: gating the whole body on a
+   JS transition ships a blank page to fast crawlers/previews. */
 (function () {
-  document.body.style.opacity = '0';
-  requestAnimationFrame(() => {
-    document.body.style.transition = 'opacity 0.35s ease-out';
-    requestAnimationFrame(() => { document.body.style.opacity = '1'; });
-  });
+  if (reducedMotion) return;
 
   document.addEventListener('click', e => {
     const link = e.target.closest('a[href]');
@@ -14,10 +17,15 @@
     const href = link.getAttribute('href');
     if (!href || !href.startsWith('/') || link.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
     if (href === window.location.pathname) return;
+    if (href.endsWith('.xml') || href.endsWith('.pdf')) return;
     e.preventDefault();
     document.body.style.transition = 'opacity 0.2s ease-in';
     document.body.style.opacity = '0';
     setTimeout(() => { window.location.href = href; }, 210);
+  });
+
+  window.addEventListener('pageshow', e => {
+    if (e.persisted) document.body.style.opacity = '1';
   });
 })();
 
@@ -51,7 +59,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 const revealEls = document.querySelectorAll('[data-reveal]');
 if (revealEls.length) {
   /* Assign stagger delays to siblings in the same grid/list */
-  document.querySelectorAll('.services-grid, .projects-grid, .why-list, .stats-grid, .blog-grid, .training-grid, .team-grid, .services-page-grid, .trust-bar-inner, .footer-grid').forEach(parent => {
+  document.querySelectorAll('.svc-ledger, .services-grid, .projects-grid, .why-list, .stats-grid, .blog-grid, .training-grid, .team-grid, .services-page-grid, .trust-bar-inner, .footer-grid').forEach(parent => {
     parent.querySelectorAll('[data-reveal]').forEach((el, i) => {
       el.style.setProperty('--delay', `${i * 80}ms`);
     });

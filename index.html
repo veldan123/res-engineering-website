@@ -74,24 +74,47 @@
         <a href="/contact-us/" class="btn btn-primary btn-lg">Get a Free Quote</a>
         <a href="/services/" class="btn btn-outline btn-lg">Our Services</a>
       </div>
-      <div class="hero-stats">
-        <div>
-          <span class="hero-stat-num" data-count="12" data-suffix="+">12+</span>
-          <span class="hero-stat-label">Years of Experience</span>
-        </div>
-        <div>
-          <span class="hero-stat-num" data-count="540" data-suffix="+">540+</span>
-          <span class="hero-stat-label">Projects Completed</span>
-        </div>
-        <div>
-          <span class="hero-stat-num" data-count="180" data-suffix="+">180+</span>
-          <span class="hero-stat-label">Clients Served</span>
-        </div>
-        <div>
-          <span class="hero-stat-num" data-count="100" data-suffix="%">100%</span>
-          <span class="hero-stat-label">EMA Compliant</span>
-        </div>
-      </div>
+    </div>
+    <div class="hero-diagram-wrap" aria-hidden="true">
+      <!-- single-line diagram: incoming supply → main breaker → transformer → busbar → feeders -->
+      <svg class="hero-diagram" viewBox="0 0 380 420" xmlns="http://www.w3.org/2000/svg">
+        <text class="lbl" x="196" y="16">22kV INCOMING</text>
+        <path class="wire" d="M190 22 V56"/>
+        <path class="wire" d="M182 30 L190 22 L198 30"/>
+        <rect class="wire" x="178" y="56" width="24" height="24"/>
+        <path class="wire" d="M180 78 L200 58"/>
+        <path class="wire" d="M190 80 V116"/>
+        <circle class="wire" cx="190" cy="134" r="18"/>
+        <circle class="wire" cx="190" cy="158" r="18"/>
+        <text class="lbl" x="222" y="150">TX 1500kVA</text>
+        <path class="wire" d="M190 176 V210"/>
+        <path class="wire" d="M50 210 H330" stroke-width="3"/>
+        <text class="lbl" x="50" y="200">MAIN LV BUSBAR · 400V</text>
+        <circle class="node-r" cx="255" cy="210" r="4"/>
+        <circle class="node-y" cx="272" cy="210" r="4"/>
+        <circle class="node-b" cx="289" cy="210" r="4"/>
+        <path class="wire" d="M90 210 V246"/>
+        <rect class="wire" x="80" y="246" width="20" height="20"/>
+        <path class="wire" d="M82 264 L98 248"/>
+        <path class="wire" d="M90 266 V300"/>
+        <path class="wire" d="M82 300 H98 L90 314 Z"/>
+        <text class="lbl" x="66" y="334">DB-01</text>
+        <path class="wire" d="M190 210 V246"/>
+        <rect class="wire" x="180" y="246" width="20" height="20"/>
+        <path class="wire" d="M182 264 L198 248"/>
+        <path class="wire" d="M190 266 V300"/>
+        <path class="wire" d="M182 300 H198 L190 314 Z"/>
+        <text class="lbl" x="166" y="334">DB-02</text>
+        <path class="wire" d="M290 210 V246"/>
+        <rect class="wire" x="280" y="246" width="20" height="20"/>
+        <path class="wire" d="M282 264 L298 248"/>
+        <path class="wire" d="M290 266 V300"/>
+        <circle class="wire" cx="290" cy="314" r="13"/>
+        <text class="lbl" x="284" y="319">M</text>
+        <text class="lbl" x="262" y="348">MOTOR LOAD</text>
+        <path class="wire" d="M50 380 H330" stroke-dasharray="4 6"/>
+        <text class="lbl" x="50" y="372">TESTED TO SS 638 · CP 5</text>
+      </svg>
     </div>
   </div>
 </section>
@@ -132,58 +155,73 @@
       <h2 class="section-title">Comprehensive Electrical Engineering Services</h2>
       <p class="section-desc" style="margin: 0 auto;">From routine testing to complex shutdown operations, we deliver safe, reliable, and fully compliant electrical solutions across Singapore.</p>
     </div>
-    <div class="services-grid">
+    <div class="svc-ledger">
 
-      <div class="service-card" data-reveal>
-        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-        <h3>LEW Services</h3>
+      <a href="/services/" class="svc-row" data-reveal>
+        <div>
+          <h3>LEW Services</h3>
+          <span class="svc-spec">Licensed Electrical Worker · All facility types</span>
+        </div>
         <p>Full Licensed Electrical Worker services for electrical installations, maintenance, and compliance across all facility types in Singapore.</p>
-        <a href="/services/" class="learn-more">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
+        <span class="svc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
 
-      <div class="service-card" data-reveal>
-        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
-        <h3>Electrical Testing &amp; Inspection</h3>
+      <a href="/services/" class="svc-row" data-reveal>
+        <div>
+          <h3>Electrical Testing &amp; Inspection</h3>
+          <span class="svc-spec">SS 638 · Commissioning &amp; periodic testing</span>
+        </div>
         <p>Comprehensive testing and commissioning of electrical installations to SS 638 standards, required for all new and modified electrical systems.</p>
-        <a href="/services/" class="learn-more">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
+        <span class="svc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
 
-      <div class="service-card" data-reveal>
-        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <h3>Shutdown Servicing</h3>
+      <a href="/services/" class="svc-row" data-reveal>
+        <div>
+          <h3>Shutdown Servicing</h3>
+          <span class="svc-spec">Planned maintenance · Industrial &amp; commercial</span>
+        </div>
         <p>Planned maintenance, servicing, and upgrades carried out during scheduled shutdowns of industrial and commercial facilities.</p>
-        <a href="/services/" class="learn-more">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
+        <span class="svc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
 
-      <div class="service-card" data-reveal>
-        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <h3>EMA Licence Applications</h3>
+      <a href="/services/" class="svc-row" data-reveal>
+        <div>
+          <h3>EMA Licence Applications</h3>
+          <span class="svc-spec">Applications · Renewals · Amendments</span>
+        </div>
         <p>Expert guidance for Energy Market Authority licence applications, renewals, and amendments — we handle the paperwork so you don't have to.</p>
-        <a href="/services/" class="learn-more">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
+        <span class="svc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
 
-      <div class="service-card" data-reveal>
-        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
-        <h3>Safety Training</h3>
+      <a href="/training/" class="svc-row" data-reveal>
+        <div>
+          <h3>Safety Training</h3>
+          <span class="svc-spec">MOM &amp; EMA compliant · Certificates issued</span>
+        </div>
         <p>Certified electrical safety training courses for workers and supervisors, meeting MOM and EMA requirements for Singapore workplaces.</p>
-        <a href="/training/" class="learn-more">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
+        <span class="svc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
 
-      <div class="service-card" data-reveal>
-        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></div>
-        <h3>Electrical Consultancy</h3>
+      <a href="/services/" class="svc-row" data-reveal>
+        <div>
+          <h3>Electrical Consultancy</h3>
+          <span class="svc-spec">System design · Load studies · Energy audits</span>
+        </div>
         <p>Professional engineering consultancy for electrical system design, load studies, energy audits, and upgrade planning for your facilities.</p>
-        <a href="/services/" class="learn-more">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
+        <span class="svc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
 
     </div>
   </div>
 </section>
 
-<!-- STATS STRIP -->
+<!-- STATS STRIP — equipment rating plate -->
 <div class="stats-strip">
   <div class="container">
-    <div class="stats-grid">
+    <div class="plate" data-reveal>
+      <span class="screw-l"></span><span class="screw-r"></span>
+      <div class="plate-title">RES Engineering Services Pte. Ltd. · Reg. Singapore 2014 · Reliable · Efficient · Safe</div>
+      <div class="stats-grid">
       <div class="stat-item" data-reveal>
         <span class="stat-num" data-count="12" data-suffix="+">12+</span>
         <span class="stat-label">Years in the Industry</span>
@@ -199,6 +237,7 @@
       <div class="stat-item" data-reveal>
         <span class="stat-num" data-count="100" data-suffix="%">100%</span>
         <span class="stat-label">EMA Compliance Rate</span>
+      </div>
       </div>
     </div>
   </div>
