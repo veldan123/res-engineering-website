@@ -36,7 +36,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=3">
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -114,6 +114,10 @@
         <text class="lbl" x="262" y="348">MOTOR LOAD</text>
         <path class="wire" d="M50 380 H330" stroke-dasharray="4 6"/>
         <text class="lbl" x="50" y="372">TESTED TO SS 638 · CP 5</text>
+        <!-- live current overlay: marching dashes fade in after the draw -->
+        <path class="flow" d="M190 22 V210"/>
+        <path class="flow" d="M50 210 H330"/>
+        <path class="flow" d="M90 210 V300 M190 210 V300 M290 210 V300"/>
       </svg>
     </div>
   </div>
@@ -332,6 +336,110 @@
   </div>
 </section>
 
+<!-- THE SHUTDOWN SEQUENCE — scroll-driven isolation demo -->
+<section class="shutdown-scroll" data-step="1" aria-label="How a planned electrical shutdown works">
+  <div class="shutdown-sticky">
+    <div class="container shutdown-layout">
+
+      <div class="shutdown-copy">
+        <h2 class="section-title light">The Shutdown Sequence</h2>
+        <p class="section-desc light" style="margin-bottom: 40px;">What happens when RES engineers isolate your installation for servicing — every step verified, documented, and signed off by a Licensed Electrical Worker.</p>
+        <ol class="shutdown-steps">
+          <li data-step="1">
+            <span class="sd-step-no">01</span>
+            <div>
+              <h4>Energised</h4>
+              <p>Normal operation. Load current flows from the incoming supply through the main breaker to your distribution boards.</p>
+            </div>
+          </li>
+          <li data-step="2">
+            <span class="sd-step-no">02</span>
+            <div>
+              <h4>Isolate</h4>
+              <p>The main breaker is opened under a Permit-to-Work. Current stops — the installation is separated from the supply.</p>
+            </div>
+          </li>
+          <li data-step="3">
+            <span class="sd-step-no">03</span>
+            <div>
+              <h4>Earth</h4>
+              <p>The earth switch is closed, discharging stored energy and holding the conductors safely at earth potential.</p>
+            </div>
+          </li>
+          <li data-step="4">
+            <span class="sd-step-no">04</span>
+            <div>
+              <h4>Lock Out</h4>
+              <p>Locks and tags go on. Dead is verified with a calibrated tester. Only then does the work begin.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="shutdown-diagram">
+        <div class="sd-status" role="status">
+          <span class="sd-s1">Energised — Live</span>
+          <span class="sd-s2">Isolated</span>
+          <span class="sd-s3">Earthed</span>
+          <span class="sd-s4">Locked Out — Safe to Work</span>
+        </div>
+        <svg class="sd-svg" viewBox="0 0 440 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <text class="lbl" x="232" y="30">22kV SUPPLY</text>
+          <path class="wire" d="M220 18 V54"/>
+          <path class="wire" d="M212 26 L220 18 L228 26"/>
+
+          <!-- main breaker: two contacts + swinging arm -->
+          <circle class="wire" cx="220" cy="58" r="3"/>
+          <circle class="wire" cx="220" cy="110" r="3"/>
+          <line class="wire sd-arm" x1="220" y1="110" x2="220" y2="61"/>
+          <text class="lbl" x="240" y="90">MAIN BREAKER</text>
+
+          <path class="wire" d="M220 113 V150"/>
+          <path class="wire" d="M70 150 H370" stroke-width="3"/>
+          <circle class="node-r" cx="336" cy="150" r="4"/>
+          <circle class="node-y" cx="350" cy="150" r="4"/>
+          <circle class="node-b" cx="364" cy="150" r="4"/>
+          <text class="lbl" x="70" y="140">MAIN LV BUSBAR · 400V</text>
+
+          <!-- feeders -->
+          <path class="wire" d="M120 150 V226"/>
+          <path class="wire" d="M112 226 H128 L120 240 Z"/>
+          <text class="lbl" x="102" y="258">DB-01</text>
+          <path class="wire" d="M190 150 V226"/>
+          <path class="wire" d="M182 226 H198 L190 240 Z"/>
+          <text class="lbl" x="172" y="258">DB-02</text>
+
+          <!-- earth switch branch -->
+          <path class="wire" d="M320 150 V192"/>
+          <circle class="wire" cx="320" cy="196" r="3"/>
+          <line class="wire sd-earth-arm" x1="320" y1="224" x2="320" y2="199"/>
+          <path class="wire" d="M320 224 V244"/>
+          <path class="wire" d="M304 244 H336"/>
+          <path class="wire" d="M310 251 H330"/>
+          <path class="wire" d="M316 258 H324"/>
+          <text class="lbl" x="292" y="278">EARTH SWITCH</text>
+
+          <!-- live current overlay -->
+          <g class="sd-flow">
+            <path d="M220 18 V150"/>
+            <path d="M70 150 H370"/>
+            <path d="M120 150 V226 M190 150 V226"/>
+          </g>
+
+          <!-- LOTO padlock -->
+          <g class="sd-lock">
+            <path class="wire" d="M138 80 v-10 a10 10 0 0 1 20 0 v10" stroke-width="2.5"/>
+            <rect class="sd-lock-body" x="130" y="80" width="36" height="28" rx="3"/>
+            <circle class="sd-lock-hole" cx="148" cy="93" r="4"/>
+            <text class="lbl sd-lock-lbl" x="112" y="128">LOTO APPLIED</text>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- FEATURED PROJECTS -->
 <section class="section">
   <div class="container">
@@ -477,6 +585,6 @@
   </div>
 </footer>
 
-<script src="/js/main.js"></script>
+<script src="/js/main.js?v=3"></script>
 </body>
 </html>

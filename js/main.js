@@ -29,6 +29,39 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
   });
 })();
 
+/* === SCROLL CURRENT — progress flows along the busbar rule === */
+(function () {
+  if (reducedMotion) return;
+  const hdr = document.querySelector('.site-header');
+  if (!hdr) return;
+  const bar = document.createElement('div');
+  bar.className = 'scroll-current';
+  bar.setAttribute('aria-hidden', 'true');
+  hdr.appendChild(bar);
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+/* === SHUTDOWN SEQUENCE SCRUB === */
+(function () {
+  const sd = document.querySelector('.shutdown-scroll');
+  if (!sd) return;
+  const update = () => {
+    const total = Math.max(1, sd.offsetHeight - window.innerHeight);
+    const p = Math.min(1, Math.max(0, -sd.getBoundingClientRect().top / total));
+    const step = p < 0.22 ? 1 : p < 0.5 ? 2 : p < 0.78 ? 3 : 4;
+    if (sd.dataset.step !== String(step)) sd.dataset.step = String(step);
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
 /* === NAVIGATION === */
 const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');

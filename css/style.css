@@ -1098,6 +1098,188 @@ html.js .hero-diagram .wire {
 .footer-bottom a { color: rgba(255,255,255,0.65); }
 .footer-bottom a:hover { color: #fff; }
 
+/* === LIVE CURRENT (hero diagram) === */
+.hero-diagram .flow {
+  stroke: var(--phase-y);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 4 10;
+  opacity: 0;
+}
+html.js .hero-diagram .flow {
+  animation:
+    flow-dash 1.1s linear infinite,
+    flow-in 0.8s cubic-bezier(0.16,1,0.3,1) 2.7s forwards;
+}
+@keyframes flow-dash { to { stroke-dashoffset: -14; } }
+@keyframes flow-in { to { opacity: 0.85; } }
+
+/* === SCROLL CURRENT (progress along the busbar rule) === */
+.scroll-current {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: var(--phase-y);
+  box-shadow: 0 0 8px rgba(242,183,5,0.8);
+  pointer-events: none;
+  z-index: 1;
+}
+.site-header { overflow: visible; }
+
+/* === THE SHUTDOWN SEQUENCE (scroll-driven) === */
+.shutdown-scroll {
+  background: var(--brand-ink);
+  background-image: var(--grid-lines);
+  background-size: 56px 56px;
+  color: #fff;
+  position: relative;
+}
+html.js .shutdown-scroll { height: 380vh; }
+.shutdown-sticky {
+  padding: clamp(56px, 7vw, 88px) 0;
+}
+html.js .shutdown-sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 88px 0 56px;
+}
+.shutdown-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+  width: 100%;
+}
+
+.shutdown-steps { display: flex; flex-direction: column; }
+.shutdown-steps li {
+  display: flex;
+  gap: 18px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255,255,255,0.14);
+  opacity: 0.38;
+  transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+.sd-step-no {
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-stretch: 116%;
+  color: var(--phase-y);
+  padding-top: 3px;
+  min-width: 28px;
+}
+.shutdown-steps h4 { font-size: 0.98rem; font-weight: 750; margin-bottom: 4px; }
+.shutdown-steps p { font-size: 0.875rem; color: rgba(255,255,255,0.72); line-height: 1.7; }
+
+.shutdown-scroll[data-step="1"] li[data-step="1"],
+.shutdown-scroll[data-step="2"] li[data-step="2"],
+.shutdown-scroll[data-step="3"] li[data-step="3"],
+.shutdown-scroll[data-step="4"] li[data-step="4"] { opacity: 1; }
+
+/* diagram panel */
+.shutdown-diagram {
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.03);
+  padding: 28px;
+}
+.sd-svg { width: 100%; height: auto; display: block; }
+.sd-svg .wire { stroke: rgba(255,255,255,0.55); stroke-width: 1.5; fill: none; }
+.sd-svg .lbl { fill: rgba(255,255,255,0.55); font-family: var(--font); font-size: 9px; letter-spacing: 0.08em; }
+.sd-svg .node-r { fill: var(--phase-r); }
+.sd-svg .node-y { fill: var(--phase-y); }
+.sd-svg .node-b { fill: var(--phase-b); }
+
+/* breaker + earth switch arms */
+.sd-arm {
+  transform-origin: 220px 110px;
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.sd-earth-arm {
+  transform-origin: 320px 224px;
+  transform: rotate(48deg);
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.shutdown-scroll[data-step="2"] .sd-arm,
+.shutdown-scroll[data-step="3"] .sd-arm,
+.shutdown-scroll[data-step="4"] .sd-arm { transform: rotate(-38deg); }
+.shutdown-scroll[data-step="3"] .sd-earth-arm,
+.shutdown-scroll[data-step="4"] .sd-earth-arm { transform: rotate(0deg); }
+
+/* current flow: on at step 1, dies when isolated */
+.sd-flow path {
+  stroke: var(--phase-y);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 4 10;
+}
+html.js .sd-flow path { animation: flow-dash 1.1s linear infinite; }
+.sd-flow { opacity: 0.9; transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1); }
+.shutdown-scroll[data-step="2"] .sd-flow,
+.shutdown-scroll[data-step="3"] .sd-flow,
+.shutdown-scroll[data-step="4"] .sd-flow { opacity: 0; }
+
+/* LOTO padlock */
+.sd-lock { opacity: 0; transform: translateY(6px); transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+.sd-lock-body { fill: var(--phase-y); }
+.sd-lock-hole { fill: var(--brand-ink); }
+.sd-lock .wire { stroke: var(--phase-y); }
+.sd-lock-lbl { fill: var(--phase-y) !important; font-weight: 700; }
+.shutdown-scroll[data-step="4"] .sd-lock { opacity: 1; transform: translateY(0); }
+
+/* status chip */
+.sd-status {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  min-height: 30px;
+  position: relative;
+}
+.sd-status span {
+  position: absolute;
+  top: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  border: 1px solid;
+  border-radius: var(--radius);
+  padding: 6px 12px;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.sd-status span::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.sd-status .sd-s1 { color: #FF8A80; border-color: rgba(255,138,128,0.5); }
+.sd-status .sd-s2 { color: var(--phase-y); border-color: rgba(242,183,5,0.5); }
+.sd-status .sd-s3 { color: #8FB3FF; border-color: rgba(143,179,255,0.5); }
+.sd-status .sd-s4 { color: #5EE29A; border-color: rgba(94,226,154,0.5); }
+.shutdown-scroll[data-step="1"] .sd-s1,
+.shutdown-scroll[data-step="2"] .sd-s2,
+.shutdown-scroll[data-step="3"] .sd-s3,
+.shutdown-scroll[data-step="4"] .sd-s4 { opacity: 1; }
+
+/* live-status pulse while energised */
+html.js .shutdown-scroll[data-step="1"] .sd-s1::before { animation: status-pulse 1.4s ease-in-out infinite; }
+@keyframes status-pulse { 50% { opacity: 0.35; } }
+
+/* no-JS: render as a normal static section, sequence complete */
+html:not(.js) .shutdown-scroll .sd-arm { transform: rotate(-38deg); }
+html:not(.js) .shutdown-scroll .sd-earth-arm { transform: rotate(0deg); }
+html:not(.js) .shutdown-scroll .sd-flow { opacity: 0; }
+html:not(.js) .shutdown-scroll .sd-lock { opacity: 1; transform: none; }
+html:not(.js) .shutdown-scroll .sd-s4 { opacity: 1; }
+html:not(.js) .shutdown-steps li { opacity: 1; }
+
 /* === REVEAL SYSTEM ===
    Content is visible by default; the hidden initial state
    only applies when JS is confirmed running (html.js). */
@@ -1119,6 +1301,9 @@ html.js [data-reveal].revealed { opacity: 1; transform: translateY(0); }
   }
   html.js [data-reveal] { opacity: 1; transform: none; }
   html.js .hero-diagram .wire { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+  html.js .hero-diagram .flow { animation: none; opacity: 0; }
+  html.js .sd-flow path { animation: none; }
+  .scroll-current { display: none; }
 }
 
 /* === RESPONSIVE === */
@@ -1151,6 +1336,16 @@ html.js [data-reveal].revealed { opacity: 1; transform: translateY(0); }
 
   .svc-row { grid-template-columns: 1fr; gap: 10px; }
   .svc-arrow { display: none; }
+  html.js .shutdown-scroll { height: 300vh; }
+  .shutdown-layout { grid-template-columns: 1fr; gap: 32px; }
+  .shutdown-diagram { order: -1; padding: 18px; }
+  .shutdown-steps p { display: none; }
+  .shutdown-scroll[data-step="1"] li[data-step="1"] p,
+  .shutdown-scroll[data-step="2"] li[data-step="2"] p,
+  .shutdown-scroll[data-step="3"] li[data-step="3"] p,
+  .shutdown-scroll[data-step="4"] li[data-step="4"] p,
+  html:not(.js) .shutdown-steps p { display: block; }
+  .shutdown-steps li { padding: 12px 0; }
   .stats-grid { grid-template-columns: 1fr 1fr; row-gap: 18px; }
   .stat-item:nth-child(3) { border-left: none; }
   .training-grid { grid-template-columns: 1fr; }
