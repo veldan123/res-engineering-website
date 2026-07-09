@@ -190,6 +190,6 @@ contactForm?.addEventListener('submit', async (e) => {
   } catch {
     btn.textContent = orig;
     btn.disabled = false;
-    alert('Something went wrong. Please call us directly at +65 9684 2296.');
+    alert('Something went wrong. Please call us directly at +65 9237 2285.');
   }
 });
