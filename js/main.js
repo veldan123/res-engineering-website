@@ -60,6 +60,25 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
+
+  /* click a step to jump the sequence there */
+  const targets = { 1: 0.1, 2: 0.36, 3: 0.64, 4: 0.9 };
+  sd.querySelectorAll('.shutdown-steps li').forEach(li => {
+    li.setAttribute('role', 'button');
+    li.setAttribute('tabindex', '0');
+    const go = () => {
+      const total = Math.max(1, sd.offsetHeight - window.innerHeight);
+      const top = sd.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: top + total * targets[li.dataset.step],
+        behavior: reducedMotion ? 'instant' : 'smooth'
+      });
+    };
+    li.addEventListener('click', go);
+    li.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  });
 })();
 
 /* === NAVIGATION === */

@@ -1161,11 +1161,16 @@ html.js .shutdown-sticky {
 .shutdown-steps li {
   display: flex;
   gap: 18px;
-  padding: 18px 0;
+  padding: 18px 12px;
+  margin: 0 -12px;
   border-top: 1px solid rgba(255,255,255,0.14);
   opacity: 0.38;
-  transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1);
+  transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1), background 0.3s cubic-bezier(0.16,1,0.3,1);
+  cursor: pointer;
+  border-radius: var(--radius);
 }
+.shutdown-steps li:hover { opacity: 0.75; background: rgba(255,255,255,0.05); }
+.shutdown-steps li:focus-visible { outline: 2px solid var(--phase-y); outline-offset: 2px; }
 .sd-step-no {
   font-size: 0.78rem;
   font-weight: 800;
