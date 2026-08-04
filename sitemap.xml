@@ -32,9 +32,21 @@
   </url>
   <url>
     <loc>https://resengrg.com/training/</loc>
-    <lastmod>2026-05-16</lastmod>
+    <lastmod>2026-08-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://resengrg.com/training/electrical-safety-awareness/</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://resengrg.com/training/ema-lew-licence-prep/</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://resengrg.com/blog/</loc>
