@@ -1115,6 +1115,24 @@ html.js .hero-diagram .flow {
 @keyframes flow-dash { to { stroke-dashoffset: -14; } }
 @keyframes flow-in { to { opacity: 0.85; } }
 
+/* === 3D HERO (progressive enhancement, desktop only) === */
+.hero-diagram-wrap { position: relative; }
+.hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  animation: hero3d-in 1.1s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+}
+/* once the 3D scene is up, retire the flat SVG (kept for fallback/no-JS) */
+.hero-diagram-wrap.has-3d .hero-diagram {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+@keyframes hero3d-in { to { opacity: 1; } }
+
 /* === SCROLL CURRENT (progress along the busbar rule) === */
 .scroll-current {
   position: absolute;
