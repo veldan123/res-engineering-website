@@ -1133,6 +1133,51 @@ html.js .hero-diagram .flow {
 }
 @keyframes hero3d-in { to { opacity: 1; } }
 
+/* === WHATSAPP FLOATING BUTTON === */
+.wa-fab {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: calc(clamp(16px, 3vw, 28px) + env(safe-area-inset-bottom, 0px));
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.wa-fab svg { width: 30px; height: 30px; position: relative; z-index: 1; }
+.wa-fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 26px rgba(37,211,102,0.45); }
+.wa-fab:active { transform: translateY(-1px) scale(1); }
+.wa-fab:focus-visible { outline: 3px solid rgba(37,211,102,0.55); outline-offset: 3px; }
+/* subtle attention pulse */
+.wa-fab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25D366;
+  z-index: 0;
+  animation: wa-pulse 2.6s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { opacity: 0; }
+}
+@media (max-width: 480px) {
+  .wa-fab { width: 52px; height: 52px; }
+  .wa-fab svg { width: 28px; height: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-fab { transition: none; }
+  .wa-fab::after { animation: none; display: none; }
+}
+
 /* === SCROLL CURRENT (progress along the busbar rule) === */
 .scroll-current {
   position: absolute;
