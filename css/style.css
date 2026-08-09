@@ -1151,6 +1151,29 @@ html.js .hero-diagram .flow {
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s cubic-bezier(0.16,1,0.3,1);
 }
 .wa-fab svg { width: 30px; height: 30px; position: relative; z-index: 1; }
+/* "Chat with us" hover label (desktop only) */
+.wa-fab-label {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  white-space: nowrap;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1), transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+@media (hover: hover) and (min-width: 768px) {
+  .wa-fab:hover .wa-fab-label,
+  .wa-fab:focus-visible .wa-fab-label { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+@media (max-width: 767px) { .wa-fab-label { display: none; } }
 .wa-fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 26px rgba(37,211,102,0.45); }
 .wa-fab:active { transform: translateY(-1px) scale(1); }
 .wa-fab:focus-visible { outline: 3px solid rgba(37,211,102,0.55); outline-offset: 3px; }
